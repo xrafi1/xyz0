@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Rafi University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Admin Access</h1>
+            <p class="text-gray-500">Sign in to manage website content</p>
+        </div>
+
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="login-email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="login-email" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+                <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="login-password" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">Sign In</button>
+            <p class="text-center text-sm text-gray-600">
+                First time here? <a href="#" id="show-signup" class="font-medium text-blue-600 hover:text-blue-500">Create an account</a>
+            </p>
+        </form>
+
+        <form id="signup-form" class="space-y-6 hidden">
+            <div>
+                <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="signup-email" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+                <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="signup-password" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors">Sign Up</button>
+            <p class="text-center text-sm text-gray-600">
+                Already have an account? <a href="#" id="show-login" class="font-medium text-blue-600 hover:text-blue-500">Sign in</a>
+            </p>
+        </form>
+        
+        <p id="error-message" class="mt-4 text-center text-red-500 font-medium"></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAheTW0W5gtD8QtjErCoA5KnqsUdmFOn1Q",
+            authDomain: "rafi-aa3f7.firebaseapp.com",
+            projectId: "rafi-aa3f7",
+            storageBucket: "rafi-aa3f7.firebasestorage.app",
+            messagingSenderId: "304081068184",
+            appId: "1:304081068184:web:a7aae4eb4c69707faa30ed",
+            measurementId: "G-3WJ3G1BVRJ"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+        const errorMessage = document.getElementById('error-message');
+
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+            errorMessage.textContent = '';
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            errorMessage.textContent = '';
+        });
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    window.location.href = '/admin.html';
+                })
+                .catch((error) => {
+                    errorMessage.textContent = error.message;
+                });
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                     window.location.href = '/admin.html';
+                })
+                .catch((error) => {
+                    errorMessage.textContent = error.message;
+                });
+        });
+    </script>
+</body>
+</html>
