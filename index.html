@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafi University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --primary-blue: #1f3d7a; --accent-blue: #5a8bf7; --light-bg: #f5f7f9; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); color: #1a202c; }
+        .carousel-item { opacity: 0; transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel-item.active { opacity: 1; }
+        .slide-up { animation: slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; opacity: 0; transform: translateY(60px); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 1.2s ease-out forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+        #hero .hero-text { font-size: 2.5rem; line-height: 1.2; }
+        @media (min-width: 768px) { #hero .hero-text { font-size: 5rem; line-height: 1.1; } }
+        /* Simple loader */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        [data-loading] { visibility: hidden; }
+    </style>
+</head>
+<body>
+    <header class="bg-white sticky top-0 z-50 shadow-xl p-4 md:p-6">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="https://i.ibb.co/r2tP3wzb/Blue-Modern-Initials-Letter-A-University-Logo.png" alt="Rafi University Logo" class="h-12 w-12 rounded-full shadow-lg">
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Rafi University</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-lg font-medium text-gray-700">
+                <a href="#intro" class="hover:text-blue-600 transition-colors">About Us</a>
+                <a href="#messages" class="hover:text-blue-600 transition-colors">Messages</a>
+                <a href="#vision" class="hover:text-blue-600 transition-colors">Our Vision</a>
+                <a href="#numbers" class="hover:text-blue-600 transition-colors">Statistics</a>
+                <a href="#contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+        </div>
+    </header>
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-lg py-6 transition-all duration-300 ease-in-out">
+        <nav class="flex flex-col items-center space-y-6 text-lg font-medium text-gray-700">
+            <a href="#intro" class="hover:text-blue-600 transition-colors">About Us</a>
+            <a href="#messages" class="hover:text-blue-600 transition-colors">Messages</a>
+            <a href="#vision" class="hover:text-blue-600 transition-colors">Our Vision</a>
+            <a href="#numbers" class="hover:text-blue-600 transition-colors">Statistics</a>
+            <a href="#contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-4 py-20 space-y-32">
+        <section id="messages" class="space-y-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 slide-up">Messages from Our Leadership</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div data-loading class="card p-10 bg-white rounded-3xl text-center flex flex-col items-center slide-up">
+                    <div class="loader"></div>
+                    <img id="principal-image" src="" alt="Principal" class="w-44 h-44 md:w-56 md:h-56 rounded-full mb-6 object-cover border-4 border-blue-400 hidden">
+                    <h3 id="principal-name" class="text-2xl font-semibold text-gray-900"></h3>
+                    <p class="text-blue-600 font-medium mb-4">Principal</p>
+                    <p id="principal-message" class="text-gray-600 leading-relaxed"></p>
+                </div>
+                <div data-loading class="card p-10 bg-white rounded-3xl text-center flex flex-col items-center slide-up">
+                     <div class="loader"></div>
+                    <img id="director-image" src="" alt="Director" class="w-44 h-44 md:w-56 md:h-56 rounded-full mb-6 object-cover border-4 border-blue-400 hidden">
+                    <h3 id="director-name" class="text-2xl font-semibold text-gray-900"></h3>
+                    <p class="text-blue-600 font-medium mb-4">Director</p>
+                    <p id="director-message" class="text-gray-600 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="space-y-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 slide-up">Our Vision & Mission</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div data-loading class="p-10 bg-white rounded-3xl card flex flex-col items-center text-center slide-up">
+                     <div class="loader"></div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Our Vision</h3>
+                    <p id="vision-text" class="text-gray-600 leading-relaxed"></p>
+                </div>
+                <div data-loading class="p-10 bg-white rounded-3xl card flex flex-col items-center text-center slide-up">
+                    <div class="loader"></div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Our Mission</h3>
+                    <p id="mission-text" class="text-gray-600 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="numbers" class="space-y-16 text-center py-24 px-4 bg-[var(--primary-blue)] rounded-[3rem] text-white slide-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 tracking-wide">Our Numbers Speak</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div data-loading class="p-10 bg-white/10 rounded-3xl card backdrop-blur-md">
+                    <div class="loader"></div>
+                    <div id="total-students-number" class="text-6xl md:text-8xl font-extrabold mb-4"></div>
+                    <h3 class="text-xl font-semibold mb-2">Total Students</h3>
+                    <p id="total-students-description" class="text-gray-200"></p>
+                </div>
+                <div data-loading class="p-10 bg-white/10 rounded-3xl card backdrop-blur-md">
+                    <div class="loader"></div>
+                    <div id="passout-students-number" class="text-6xl md:text-8xl font-extrabold mb-4"></div>
+                    <h3 class="text-xl font-semibold mb-2">Passout Students</h3>
+                    <p id="passout-students-description" class="text-gray-200"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <a href="/login.html" class="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-110" title="Admin Panel">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+    </a>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAheTW0W5gtD8QtjErCoA5KnqsUdmFOn1Q",
+            authDomain: "rafi-aa3f7.firebaseapp.com",
+            projectId: "rafi-aa3f7",
+            storageBucket: "rafi-aa3f7.firebasestorage.app",
+            messagingSenderId: "304081068184",
+            appId: "1:304081068184:web:a7aae4eb4c69707faa30ed",
+            measurementId: "G-3WJ3G1BVRJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const contentRef = doc(db, "websiteContent", "homepage");
+
+        const elements = {
+            'principal-name': 'principalName', 'principal-message': 'principalMessage', 'principal-image': 'principalImage',
+            'director-name': 'directorName', 'director-message': 'directorMessage', 'director-image': 'directorImage',
+            'vision-text': 'visionText', 'mission-text': 'missionText',
+            'total-students-number': 'totalStudentsNumber', 'total-students-description': 'totalStudentsDescription',
+            'passout-students-number': 'passoutStudentsNumber', 'passout-students-description': 'passoutStudentsDescription'
+        };
+
+        onSnapshot(contentRef, (doc) => {
+            const data = doc.data() || {};
+            
+            document.querySelectorAll('[data-loading]').forEach(el => {
+                el.querySelector('.loader')?.remove();
+                el.style.visibility = 'visible';
+            });
+
+            for (const id in elements) {
+                const element = document.getElementById(id);
+                if (element) {
+                    const dataKey = elements[id];
+                    const content = data[dataKey] || '...';
+                    
+                    if (element.tagName === 'IMG') {
+                        element.src = content;
+                        element.classList.remove('hidden');
+                    } else {
+                        element.innerText = content;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
